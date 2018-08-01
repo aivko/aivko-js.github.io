@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Info Page</title>
+</head>
+<body>
+    <div id="js_full_name">
+
+    </div>
+    <div id="js_birthday_date">
+
+    </div>
+    <div id="js_native_town">
+
+    </div>
+<script>
+  startQuestionnaire = () => {
+    const result = confirm('Вы готовы начать опрос?');
+    result ? readyQuestionnaire() : cancelQuestionnaire();
+  };
+
+  readyQuestionnaire = () => {
+    const fullName = dialogWindow(prompt, 'Укажите ФИО',);
+    const birthdayDate = dialogWindow(prompt, 'Укажите дату рождения',);
+    const nativeTown = dialogWindow(prompt, 'Укажите город проживания',);
+
+    (fullName && birthdayDate && nativeTown)
+        ? dialogWindow(alert, 'Вы ответили на все вопросы!')
+        : dialogWindow(alert, 'Вы не ответили на все вопросы!');
+
+    appentText('js_full_name', `ФИО - ${fullName}`);
+    appentText('js_birthday_date', `Дата рождения - ${birthdayDate}`);
+    appentText('js_native_town', `Город проживания - ${nativeTown}`);
+
+  };
+
+  appentText = (elem, data) => {
+    document.getElementById(elem).innerHTML = data
+  };
+
+  dialogWindow = (type, text) => {
+    return type(text);
+  };
+
+  cancelQuestionnaire = () => {
+    alert('Вы можете продолжить в свободное время');
+  };
+
+  setTimeout(startQuestionnaire, 500);
+</script>
+</body>
+</html>
