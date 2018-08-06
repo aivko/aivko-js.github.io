@@ -41,11 +41,11 @@ parseData(sum.departments, 'DEPARTMENT');
 parseData(sum.months, 'MONTH');
 
 function parseData(block, elem) {
-  for (let j = 0; j < block.length; j++) {
+  for (let i = 0; i < block.length; i++) {
     formatData.forEach((item) => {
-      if (item[elem] === block[j].name && item[elem]) {
-        block[j].value += parseFloat(item[AMOUNT]);
-        block[j].count++;
+      if (item[elem] === block[i].name && item[elem]) {
+        block[i].value += parseFloat(item[AMOUNT]);
+        block[i].count++;
       }
     });
   }
