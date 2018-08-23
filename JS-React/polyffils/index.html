@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Polyffils</title>
+</head>
+<body>
+<script>
+  const data = [0, 1, 2, 3, 4, 5, 6];
+
+  //forEach
+  Array.prototype._forEach = function(callback, thisArg) {
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+    let array = this;
+    thisArg = thisArg || this;
+    for (let i = 0; i < array.length; ++i) {
+      callback.call(thisArg, array[i], i, array);
+    }
+  };
+  data._forEach(function(item, index, array) {
+    console.log(`item: ${item}; index ${index}; array: ${array};`);
+  });
+
+  //map
+  Array.prototype._map = function(callback, thisArg) {
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+    let newArr = [];
+    for (let i = 0; i < this.length; i++) {
+      (i in this) ? newArr[i] = callback.call(thisArg || this, this[i], i, this) : false;
+    }
+    return newArr;
+  };
+  let data_map = data._map(function(item) {
+    return item + item;
+  });
+  console.log(data_map);
+
+  //filter
+  Array.prototype._filter = function(callback) {
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+    let array = [];
+    for (let i = 0, l = this.length; i < l; i++) {
+      callback(this[i]) ? array.push(this[i]) : null;
+    }
+    return array;
+  };
+  let positiveArr = data._filter(function(number) {
+    return number > 2;
+  });
+  console.log(positiveArr);
+
+  //every & some
+  isPositive = number => number > 0;
+
+  Array.prototype._every = function(callback, thisArg) {
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+    for (let i = 0; i < this.length; i++)
+      if (!callback.call(thisArg, this[i], i, this)) {
+        return false;
+      }
+    return true;
+  };
+  console.log(data._every(isPositive));
+
+  //some
+  Array.prototype._every = function(callback, thisArg) {
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+    for (let i = 0; i < this.length; i++)
+      if (!callback.call(thisArg, this[i], i, this)) {
+        return true;
+      }
+    return false;
+  };
+  console.log(data._every(isPositive));
+
+  //reduce
+  Array.prototype._reduce = function(callback, thisArg) {
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+    let value = thisArg === undefined ? undefined : thisArg;
+
+    for (let i = 0; i < this.length; i++) {
+      if (value !== undefined && i in this) {
+        value = callback.call(undefined, value, this[i], i, this);
+      } else {
+        value = this[i];
+      }
+    }
+    return value;
+  };
+  let result = data.reduce(function(sum, current) {
+    return sum + current;
+  }, 0);
+  console.log(result)
+</script>
+</body>
+</html>
