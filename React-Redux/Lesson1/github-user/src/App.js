@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import GitHubUser from './GitHubUser';
+import React from 'react';
+import GitHubUser from './GitHubUser/index';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="container-fluid pt-3">
+const App = () => {
+  return (
+      <div className="container">
         <GitHubUser />
       </div>
-    );
-  }
-}
+  );
+};
 
 export default App;
